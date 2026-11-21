@@ -13,12 +13,12 @@ NC=$'\033[0m'
 printf '\n  %sOpenCode × Termux — uninstall%s\n\n' "$DIM" "$NC"
 
 rm -f "$BIN_DIR/opencode" "$BIN_DIR/opencode-pair"
-printf '  %s✔%s launcher dihapus\n' "$GREEN" "$NC"
+printf '  %s✔%s launcher removed\n' "$GREEN" "$NC"
 
 if command -v proot-distro >/dev/null 2>&1; then
   proot-distro remove "$DISTRO" >/dev/null 2>&1 || true
-  printf '  %s✔%s distro %s dihapus\n' "$GREEN" "$NC" "$DISTRO"
+  printf '  %s✔%s distro %s removed\n' "$GREEN" "$NC" "$DISTRO"
 fi
 
-printf '  %s·%s config dibiarkan: %s\n\n' "$DIM" "$NC" "$CONFIG_DIR/opencode.json"
-printf '  Hapus juga config? %srm -rf %s%s\n\n' "$DIM" "$CONFIG_DIR" "$NC"
+printf '  %s·%s keeping config: %s\n\n' "$DIM" "$NC" "$CONFIG_DIR/opencode.json"
+printf '  Remove config too? %srm -rf %s%s\n\n' "$DIM" "$CONFIG_DIR" "$NC"
