@@ -3,9 +3,9 @@
 #  OpenCode × Termux — cool installer
 #  https://github.com/JackRipper-ID/opencode-termux
 #
-#  Memasang OpenCode V2 di Termux (Android aarch64) lewat
-#  proot-distro Debian + installer resmi OpenCode, lalu
-#  menyiapkan launcher + pairing ke OpenCode Mobile (Play Store).
+#  Installs OpenCode V2 on Termux (Android aarch64) through
+#  proot-distro Debian + the official OpenCode installer, then
+#  sets up a launcher and pairing for OpenCode Mobile (Play Store).
 # ─────────────────────────────────────────────────────────────
 set -euo pipefail
 
@@ -19,7 +19,7 @@ PAIRER="$BIN_DIR/opencode-pair"
 LOG_DIR="${TMPDIR:-${PREFIX:-/tmp}/tmp}/opencode-termux"
 REPO_RAW="${REPO_RAW:-https://raw.githubusercontent.com/JackRipper-ID/opencode-termux/main}"
 
-# ── warna (diisi setelah argumen diparse) ────────────────────
+# ── colors (filled in after argument parsing) ────────────────
 setup_colors() {
   if [ "${NO_COLOR:-0}" = "1" ] || [ ! -t 1 ]; then
     C1=""; C2=""; DIM=""; BOLD=""; RED=""; GREEN=""; YELLOW=""; NC=""
@@ -94,82 +94,82 @@ run() {
     rm -f "$log"
   else
     printf '\r  %s✖%s %s\033[K\n' "$RED" "$NC" "$label"
-    printf '    %s--- 20 baris terakhir ---%s\n' "$DIM" "$NC"
+    printf '    %s--- last 20 lines ---%s\n' "$DIM" "$NC"
     tail -n 20 "$log" | sed 's/^/    /'
-    die "Langkah gagal. Log lengkap: $log"
+    die "Step failed. Full log: $log"
   fi
 }
 
-# ── langkah-langkah ──────────────────────────────────────────
+# ── steps ────────────────────────────────────────────────────
 check_env() {
-  step "Memeriksa lingkungan"
-  [ -n "${PREFIX:-}" ] && [ -d "${PREFIX:-}" ] || die "Script ini harus dijalankan di Termux."
+  step "Checking environment"
+  [ -n "${PREFIX:-}" ] && [ -d "${PREFIX:-}" ] || die "This script must run inside Termux."
   case "$(uname -m)" in
     aarch64|arm64) ;;
-    *) die "Arsitektur $(uname -m) belum didukung. Butuh aarch64 (ARM64)." ;;
+    *) die "Architecture $(uname -m) is not supported. aarch64 (ARM64) is required." ;;
   esac
-  command -v pkg >/dev/null 2>&1 || die "Perintah 'pkg' tidak ditemukan. Ini bukan Termux?"
+  command -v pkg >/dev/null 2>&1 || die "Command 'pkg' not found. Is this really Termux?"
 
   local free_mb="?"
   if command -v df >/dev/null 2>&1; then
     free_mb="$(df -Pk "$HOME" 2>/dev/null | awk 'NR==2 { print int($4 / 1024) }')"
     [ -n "$free_mb" ] || free_mb="?"
     if [ "$free_mb" != "?" ] && [ "$free_mb" -lt 1500 ]; then
-      die "Ruang kosong ${free_mb} MB. Butuh minimal ±1.5 GB."
+      die "Only ${free_mb} MB free. At least ~1.5 GB is needed."
     fi
   fi
 
   ok "Termux · aarch64 · ${free_mb} MB free"
   if [ -z "${TERMUX_VERSION:-}" ]; then
-    warn "TERMUX_VERSION tidak terdeteksi — pakai Termux dari F-Droid/GitHub, bukan Play Store."
+    warn "TERMUX_VERSION not detected — use Termux from F-Droid/GitHub, not the Play Store build."
   fi
 }
 
 install_deps() {
-  step "Memasang dependensi"
+  step "Installing dependencies"
   run "pkg update" pkg update -y
   run "pkg install proot-distro curl tar" pkg install -y proot-distro curl tar
-  ok "proot-distro, curl, tar siap"
+  ok "proot-distro, curl, tar ready"
 }
 
 setup_distro() {
-  step "Menyiapkan ${DISTRO} (proot)"
+  step "Preparing ${DISTRO} (proot)"
   local rootfs="${PREFIX}/var/lib/proot-distro/installed-rootfs/${DISTRO}"
   if [ -d "$rootfs" ]; then
-    ok "rootfs ${DISTRO} sudah ada"
+    ok "rootfs ${DISTRO} already present"
   else
-    run "mengunduh rootfs ${DISTRO}" proot-distro install "$DISTRO"
+    run "downloading rootfs ${DISTRO}" proot-distro install "$DISTRO"
   fi
   run "apt update" proot-distro login "$DISTRO" -- bash -lc 'apt-get update -y'
-  run "memasang curl & ca-certificates" \
+  run "installing curl & ca-certificates" \
     proot-distro login "$DISTRO" -- bash -lc \
     'DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends curl ca-certificates tar'
 }
 
 install_opencode() {
-  step "Memasang OpenCode"
+  step "Installing OpenCode"
   local cmd='curl -fsSL https://opencode.ai/v2/install | bash'
   if [ -n "$TARGET_VERSION" ]; then
     cmd="curl -fsSL https://opencode.ai/v2/install | bash -s -- --version ${TARGET_VERSION}"
   fi
-  run "mengunduh & memasang OpenCode" \
+  run "downloading & installing OpenCode" \
     proot-distro login "$DISTRO" -- bash -lc "$cmd"
 
   local v
   v="$(proot-distro login "$DISTRO" -- bash -lc 'export PATH="$HOME/.opencode/bin:$PATH"; opencode --version' 2>/dev/null | tail -n 1 || true)"
   if [ -n "$v" ]; then
-    ok "OpenCode ${v} terpasang"
+    ok "OpenCode ${v} installed"
   else
-    warn "Terpasang, tapi versi tidak bisa dibaca."
+    warn "Installed, but the version could not be read."
   fi
 }
 
 write_launcher() {
-  step "Membuat launcher"
+  step "Creating launcher"
   mkdir -p "$(dirname "$LAUNCHER")"
   cat > "$LAUNCHER" <<'LAUNCHER_EOF'
 #!/data/data/com.termux/files/usr/bin/bash
-# OpenCode × Termux launcher — dibuat oleh opencode-termux
+# OpenCode × Termux launcher — generated by opencode-termux
 set -euo pipefail
 
 DISTRO="${OPENCODE_DISTRO:-debian}"
@@ -188,12 +188,12 @@ LAUNCHER_EOF
 }
 
 write_pairer() {
-  step "Menyiapkan pairing OpenCode Mobile"
+  step "Setting up OpenCode Mobile pairing"
   cat > "$PAIRER" <<'PAIRER_EOF'
 #!/data/data/com.termux/files/usr/bin/bash
-# Pair OpenCode × Termux dengan OpenCode Mobile (Play Store).
-#   opencode-pair            -> link/QR lewat OpenTunnel (bisa dari jaringan mana pun)
-#   opencode-pair --local    -> pairing lewat Wi-Fi yang sama
+# Pair OpenCode × Termux with OpenCode Mobile (Play Store).
+#   opencode-pair            -> QR/link over OpenTunnel (works from any network)
+#   opencode-pair --local    -> pair over the same Wi-Fi
 set -euo pipefail
 
 DISTRO="${OPENCODE_DISTRO:-debian}"
@@ -205,30 +205,30 @@ mkdir -p "$CFG"
 
 if [ "$MODE" = "--local" ]; then
   PAIR_CMD='opencode service set hostname 0.0.0.0 && opencode pair'
-  MODE_LABEL='Wi-Fi lokal'
+  MODE_LABEL='local Wi-Fi'
 else
   PAIR_CMD='opencode pair --remote --yes'
-  MODE_LABEL='OpenTunnel (jaringan mana pun)'
+  MODE_LABEL='OpenTunnel (any network)'
 fi
 
-printf '\n  Mode pairing: %s\n' "$MODE_LABEL"
-printf '  Biarkan terminal ini tetap terbuka selama aplikasi terhubung.\n'
-printf '  Tekan Ctrl+C untuk berhenti.\n\n'
+printf '\n  Pairing mode: %s\n' "$MODE_LABEL"
+printf '  Keep this terminal open while the app is connected.\n'
+printf '  Press Ctrl+C to stop.\n\n'
 
 exec proot-distro login "$DISTRO" \
   --bind "$WORKDIR:/workspace" \
   --bind "$CFG:/root/.config/opencode" \
-  -- bash -lc "cd /workspace 2>/dev/null || cd /root; export PATH=\"\$HOME/.opencode/bin:\$PATH\"; $PAIR_CMD; printf '\n  Server tetap hidup. Tekan Ctrl+C untuk berhenti.\n\n'; while true; do sleep 3600; done"
+  -- bash -lc "cd /workspace 2>/dev/null || cd /root; export PATH=\"\$HOME/.opencode/bin:\$PATH\"; $PAIR_CMD; printf '\n  Server is still running. Press Ctrl+C to stop.\n\n'; while true; do sleep 3600; done"
 PAIRER_EOF
   chmod 755 "$PAIRER"
   ok "pairing: $PAIRER"
 }
 
 write_config() {
-  step "Menulis konfigurasi"
+  step "Writing configuration"
   mkdir -p "$CONFIG_DIR"
   if [ -f "$CONFIG_DIR/opencode.json" ]; then
-    ok "config sudah ada — dilewati"
+    ok "config already exists — skipped"
   else
     cat > "$CONFIG_DIR/opencode.json" <<'CONFIG_EOF'
 {
@@ -242,19 +242,19 @@ CONFIG_EOF
 done_screen() {
   printf '\n'
   printf '  %s╭──────────────────────────────────────────╮%s\n' "$C2" "$NC"
-  printf '  %s│%s  %sSIAP DIPAKAI%s                            %s│%s\n' "$C2" "$NC" "$BOLD" "$NC" "$C2" "$NC"
+  printf '  %s│%s  %sREADY TO GO%s                            %s│%s\n' "$C2" "$NC" "$BOLD" "$NC" "$C2" "$NC"
   printf '  %s╰──────────────────────────────────────────╯%s\n' "$C2" "$NC"
   printf '\n'
-  printf '  %sTUI di Termux%s\n' "$BOLD" "$NC"
+  printf '  %sTUI in Termux%s\n' "$BOLD" "$NC"
   printf '    %scd ~/project && opencode%s\n' "$DIM" "$NC"
   printf '\n'
   printf '  %sOpenCode Mobile (Play Store)%s\n' "$BOLD" "$NC"
-  printf '    %s1.%s pasang %sOpenCode%s dari Play Store (ai.opencode.mobilecode)\n' "$C2" "$NC" "$DIM" "$NC"
-  printf '    %s2.%s jalankan %sopencode-pair%s di Termux — muncul QR + link\n' "$C2" "$NC" "$DIM" "$NC"
-  printf '    %s3.%s scan QR / tempel link di aplikasi\n' "$C2" "$NC"
-  printf '    %s   satu Wi-Fi? pakai %sopencode-pair --local%s\n' "$DIM" "$NC" "$DIM"
+  printf '    %s1.%s install %sOpenCode%s from the Play Store (ai.opencode.mobilecode)\n' "$C2" "$NC" "$DIM" "$NC"
+  printf '    %s2.%s run %sopencode-pair%s in Termux — a QR + link appears\n' "$C2" "$NC" "$DIM" "$NC"
+  printf '    %s3.%s scan the QR / paste the link in the app\n' "$C2" "$NC"
+  printf '    %s   same Wi-Fi? use %sopencode-pair --local%s\n' "$DIM" "$NC" "$DIM"
   printf '\n'
-  printf '  %sTips:%s %stermux-wake-lock%s biar Android tidak mematikan server.\n' "$BOLD" "$NC" "$DIM" "$NC"
+  printf '  %sTip:%s %stermux-wake-lock%s keeps Android from killing the server.\n' "$BOLD" "$NC" "$DIM" "$NC"
   printf '  %sConfig:%s %s\n' "$DIM" "$NC" "$CONFIG_DIR/opencode.json"
   printf '  %sUninstall:%s curl -fsSL %s/uninstall.sh | bash\n' "$DIM" "$NC" "$REPO_RAW"
   printf '\n'
@@ -262,13 +262,13 @@ done_screen() {
 
 uninstall() {
   banner
-  warn "Menghapus OpenCode × Termux"
+  warn "Removing OpenCode × Termux"
   rm -f "$LAUNCHER" "$PAIRER"
   if command -v proot-distro >/dev/null 2>&1; then
     proot-distro remove "$DISTRO" >/dev/null 2>&1 || true
   fi
-  ok "launcher, pairing, dan distro dihapus"
-  printf '  %sConfig dibiarkan di %s%s\n\n' "$DIM" "$CONFIG_DIR" "$NC"
+  ok "launcher, pairing and distro removed"
+  printf '  %sKeeping config at %s%s\n\n' "$DIM" "$CONFIG_DIR" "$NC"
 }
 
 usage() {
@@ -278,15 +278,15 @@ OpenCode × Termux installer v${APP_VERSION}
 Usage: install.sh [options]
 
 Options:
-  -h, --help             tampilkan bantuan
-  -v, --version <ver>    pasang versi OpenCode tertentu
-      --distro <name>    distro proot (default: debian)
-      --pair             langsung jalankan pairing setelah install
-      --uninstall        hapus launcher + distro
-      --no-color         tanpa warna
-      --dry-run          hanya cek lingkungan
+  -h, --help             show this help
+  -v, --version <ver>    install a specific OpenCode version
+      --distro <name>    proot distro (default: debian)
+      --pair             run pairing right after install
+      --uninstall        remove launcher + distro
+      --no-color         disable colors
+      --dry-run          check the environment only
 
-Contoh:
+Examples:
   curl -fsSL ${REPO_RAW}/install.sh | bash
   curl -fsSL ${REPO_RAW}/install.sh | bash -s -- --pair
   bash install.sh --version 2.0.6
@@ -307,7 +307,7 @@ main() {
       --uninstall) do_uninstall=1; shift ;;
       --no-color) NO_COLOR=1; shift ;;
       --dry-run) dry_run=1; shift ;;
-      *) warn "Opsi tidak dikenal: $1"; shift ;;
+      *) warn "Unknown option: $1"; shift ;;
     esac
   done
 
@@ -321,7 +321,7 @@ main() {
   banner
   check_env
   if [ "$dry_run" -eq 1 ]; then
-    ok "dry-run selesai — lingkungan siap."
+    ok "dry run complete — environment looks good."
     exit 0
   fi
 
