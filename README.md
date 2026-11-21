@@ -165,6 +165,10 @@ opencode-termux/
 
 ---
 
+<p align="center">
+  <sub>Built by <a href="https://github.com/JackRipper-ID">JackRipper-ID</a> · AjralDEV</sub>
+</p>
+
 <div align="center">
 <sub>Built for Termux. OpenCode is its own open source project — this repo is only an installer.</sub>
 </div>
