@@ -1,0 +1,104 @@
+<svg viewBox="0 0 880 620" xmlns="http://www.w3.org/2000/svg" font-family="SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace">
+  <defs>
+    <clipPath id="round">
+      <rect x="0" y="0" width="880" height="620" rx="12" ry="12"/>
+    </clipPath>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00F5FF" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#00F5FF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <g clip-path="url(#round)">
+    <rect x="0" y="0" width="880" height="620" fill="#0b0f14"/>
+    <rect x="0" y="0" width="880" height="240" fill="url(#fade)"/>
+
+    <!-- title bar -->
+    <rect x="0" y="0" width="880" height="36" fill="#161b22"/>
+    <circle cx="22" cy="18" r="6" fill="#ff5f56"/>
+    <circle cx="44" cy="18" r="6" fill="#ffbd2e"/>
+    <circle cx="66" cy="18" r="6" fill="#27c93f"/>
+    <text x="440" y="23" fill="#8b949e" font-size="13" text-anchor="middle">termux — bash</text>
+
+    <g font-size="13" fill="#c9d1d9">
+      <text x="24" y="62" fill="#8b949e">$ curl -fsSL .../opencode-termux/main/install.sh | bash</text>
+
+      <!-- banner -->
+      <g font-size="13" font-weight="bold">
+        <text x="24" y="90"  fill="#00F5FF">   ██████╗  ██████╗ </text>
+        <text x="24" y="108" fill="#00F5FF">  ██╔═══██╗██╔════╝ </text>
+        <text x="24" y="126" fill="#00D0E8">  ██║   ██║██║      </text>
+        <text x="24" y="144" fill="#00D0E8">  ██║   ██║██║      </text>
+        <text x="24" y="162" fill="#00A3BF">  ╚██████╔╝╚██████╗ </text>
+        <text x="24" y="180" fill="#0086A8">   ╚═════╝  ╚═════╝ </text>
+      </g>
+      <text x="24" y="200" xml:space="preserve"><tspan fill="#c9d1d9" font-weight="bold">OPENCODE</tspan><tspan fill="#00D0E8"> · </tspan><tspan fill="#c9d1d9" font-weight="bold">TERMUX</tspan></text>
+      <text x="24" y="218" fill="#6e7681" font-size="12">cool installer v1.2.0</text>
+
+      <!-- steps -->
+      <text x="24" y="248" xml:space="preserve"><tspan fill="#6e7681">[1/7]</tspan><tspan fill="#c9d1d9" font-weight="bold"> Memeriksa lingkungan</tspan></text>
+      <text x="24" y="268" xml:space="preserve"><tspan fill="#6ee7a8">✔</tspan><tspan fill="#c9d1d9"> Termux · aarch64 · 4210 MB free</tspan></text>
+
+      <text x="24" y="292" xml:space="preserve"><tspan fill="#6e7681">[2/7]</tspan><tspan fill="#c9d1d9" font-weight="bold"> Memasang dependensi</tspan></text>
+      <text x="24" y="312" xml:space="preserve"><tspan fill="#6ee7a8">✔</tspan><tspan fill="#c9d1d9"> pkg update</tspan></text>
+      <text x="24" y="330" xml:space="preserve"><tspan fill="#6ee7a8">✔</tspan><tspan fill="#c9d1d9"> pkg install proot-distro curl tar</tspan></text>
+
+      <text x="24" y="354" xml:space="preserve"><tspan fill="#6e7681">[3/7]</tspan><tspan fill="#c9d1d9" font-weight="bold"> Menyiapkan debian (proot)</tspan></text>
+      <text x="24" y="374" xml:space="preserve"><tspan fill="#6ee7a8">✔</tspan><tspan fill="#c9d1d9"> rootfs debian sudah ada</tspan></text>
+
+      <text x="24" y="398" xml:space="preserve"><tspan fill="#6e7681">[4/7]</tspan><tspan fill="#c9d1d9" font-weight="bold"> Memasang OpenCode</tspan></text>
+      <text x="24" y="418" xml:space="preserve"><tspan fill="#6ee7a8">✔</tspan><tspan fill="#c9d1d9"> OpenCode 2.3.2 terpasang</tspan></text>
+
+      <text x="24" y="442" xml:space="preserve"><tspan fill="#6e7681">[5/7]</tspan><tspan fill="#c9d1d9" font-weight="bold"> Membuat launcher</tspan></text>
+      <text x="24" y="462" xml:space="preserve"><tspan fill="#6ee7a8">✔</tspan><tspan fill="#c9d1d9"> launcher: /data/data/com.termux/files/usr/bin/opencode</tspan></text>
+
+      <text x="24" y="486" xml:space="preserve"><tspan fill="#6e7681">[6/7]</tspan><tspan fill="#c9d1d9" font-weight="bold"> Menyiapkan pairing OpenCode Mobile</tspan></text>
+      <text x="24" y="506" xml:space="preserve"><tspan fill="#6ee7a8">✔</tspan><tspan fill="#c9d1d9"> pairing: /data/data/com.termux/files/usr/bin/opencode-pair</tspan></text>
+
+      <text x="24" y="530" xml:space="preserve"><tspan fill="#6e7681">[7/7]</tspan><tspan fill="#c9d1d9" font-weight="bold"> Menulis konfigurasi</tspan></text>
+      <text x="24" y="550" xml:space="preserve"><tspan fill="#6ee7a8">✔</tspan><tspan fill="#c9d1d9"> config: ~/.config/opencode/opencode.json</tspan></text>
+
+      <!-- done box -->
+      <g>
+        <rect x="24" y="568" width="360" height="30" rx="6" fill="none" stroke="#0E4C5C" stroke-width="1.2"/>
+        <text x="38" y="588" xml:space="preserve"><tspan fill="#00F5FF" font-weight="bold">SIAP DIPAKAI</tspan><tspan fill="#6e7681">  ·  cd ~/project &amp;&amp; opencode</tspan></text>
+      </g>
+    </g>
+
+    <!-- right panel -->
+    <g transform="translate(470, 240)">
+      <rect x="0" y="0" width="386" height="270" rx="8" fill="#0e1620" stroke="#0E4C5C" stroke-width="1.2"/>
+      <text x="16" y="26" fill="#00F5FF" font-size="12" font-weight="bold">PAIRING</text>
+      <line x1="0" y1="38" x2="386" y2="38" stroke="#0E4C5C"/>
+
+      <g font-size="12" fill="#8b949e">
+        <text x="16" y="62" fill="#c9d1d9" font-weight="bold">OpenCode Mobile</text>
+        <text x="16" y="80">Play Store · ai.opencode.mobilecode</text>
+
+        <text x="16" y="108" fill="#00D0E8">$ opencode-pair</text>
+        <text x="16" y="126">Mode: OpenTunnel (jaringan mana pun)</text>
+
+        <!-- fake QR -->
+        <g transform="translate(16, 140)">
+          <rect x="0" y="0" width="96" height="96" rx="4" fill="#00F5FF" opacity="0.12"/>
+          <g fill="#00F5FF">
+            <rect x="8" y="8" width="24" height="24"/><rect x="64" y="8" width="24" height="24"/><rect x="8" y="64" width="24" height="24"/>
+            <rect x="15" y="15" width="10" height="10" fill="#0e1620"/><rect x="71" y="15" width="10" height="10" fill="#0e1620"/><rect x="15" y="71" width="10" height="10" fill="#0e1620"/>
+            <rect x="42" y="10" width="6" height="6"/><rect x="52" y="18" width="6" height="6"/><rect x="42" y="28" width="6" height="6"/>
+            <rect x="10" y="42" width="6" height="6"/><rect x="22" y="46" width="6" height="6"/><rect x="34" y="42" width="6" height="6"/>
+            <rect x="46" y="42" width="6" height="6"/><rect x="58" y="46" width="6" height="6"/><rect x="70" y="42" width="6" height="6"/>
+            <rect x="82" y="46" width="6" height="6"/><rect x="42" y="58" width="6" height="6"/><rect x="54" y="64" width="6" height="6"/>
+            <rect x="66" y="58" width="6" height="6"/><rect x="78" y="66" width="6" height="6"/><rect x="42" y="78" width="6" height="6"/>
+            <rect x="52" y="84" width="6" height="6"/><rect x="64" y="76" width="6" height="6"/><rect x="76" y="84" width="6" height="6"/>
+          </g>
+        </g>
+
+        <text x="128" y="158" fill="#c9d1d9">1. scan QR</text>
+        <text x="128" y="176" fill="#c9d1d9">2. atau tempel link</text>
+        <text x="128" y="194" fill="#6e7681">link berlaku 5 menit</text>
+
+        <text x="16" y="256" fill="#484f58">terminal tetap terbuka = server hidup</text>
+      </g>
+    </g>
+  </g>
+</svg>
