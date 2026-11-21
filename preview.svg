@@ -36,47 +36,47 @@
       <text x="24" y="218" fill="#6e7681" font-size="12">cool installer v1.2.0</text>
 
       <!-- steps -->
-      <text x="24" y="248" xml:space="preserve"><tspan fill="#6e7681">[1/7]</tspan><tspan fill="#c9d1d9" font-weight="bold"> Memeriksa lingkungan</tspan></text>
+      <text x="24" y="248" xml:space="preserve"><tspan fill="#6e7681">[1/7]</tspan><tspan fill="#c9d1d9" font-weight="bold"> Checking environment</tspan></text>
       <text x="24" y="268" xml:space="preserve"><tspan fill="#6ee7a8">✔</tspan><tspan fill="#c9d1d9"> Termux · aarch64 · 4210 MB free</tspan></text>
 
-      <text x="24" y="292" xml:space="preserve"><tspan fill="#6e7681">[2/7]</tspan><tspan fill="#c9d1d9" font-weight="bold"> Memasang dependensi</tspan></text>
+      <text x="24" y="292" xml:space="preserve"><tspan fill="#6e7681">[2/7]</tspan><tspan fill="#c9d1d9" font-weight="bold"> Installing dependencies</tspan></text>
       <text x="24" y="312" xml:space="preserve"><tspan fill="#6ee7a8">✔</tspan><tspan fill="#c9d1d9"> pkg update</tspan></text>
       <text x="24" y="330" xml:space="preserve"><tspan fill="#6ee7a8">✔</tspan><tspan fill="#c9d1d9"> pkg install proot-distro curl tar</tspan></text>
 
-      <text x="24" y="354" xml:space="preserve"><tspan fill="#6e7681">[3/7]</tspan><tspan fill="#c9d1d9" font-weight="bold"> Menyiapkan debian (proot)</tspan></text>
-      <text x="24" y="374" xml:space="preserve"><tspan fill="#6ee7a8">✔</tspan><tspan fill="#c9d1d9"> rootfs debian sudah ada</tspan></text>
+      <text x="24" y="354" xml:space="preserve"><tspan fill="#6e7681">[3/7]</tspan><tspan fill="#c9d1d9" font-weight="bold"> Preparing debian (proot)</tspan></text>
+      <text x="24" y="374" xml:space="preserve"><tspan fill="#6ee7a8">✔</tspan><tspan fill="#c9d1d9"> rootfs debian already present</tspan></text>
 
-      <text x="24" y="398" xml:space="preserve"><tspan fill="#6e7681">[4/7]</tspan><tspan fill="#c9d1d9" font-weight="bold"> Memasang OpenCode</tspan></text>
-      <text x="24" y="418" xml:space="preserve"><tspan fill="#6ee7a8">✔</tspan><tspan fill="#c9d1d9"> OpenCode 2.3.2 terpasang</tspan></text>
+      <text x="24" y="398" xml:space="preserve"><tspan fill="#6e7681">[4/7]</tspan><tspan fill="#c9d1d9" font-weight="bold"> Installing OpenCode</tspan></text>
+      <text x="24" y="418" xml:space="preserve"><tspan fill="#6ee7a8">✔</tspan><tspan fill="#c9d1d9"> OpenCode 2.3.2 installed</tspan></text>
 
-      <text x="24" y="442" xml:space="preserve"><tspan fill="#6e7681">[5/7]</tspan><tspan fill="#c9d1d9" font-weight="bold"> Membuat launcher</tspan></text>
+      <text x="24" y="442" xml:space="preserve"><tspan fill="#6e7681">[5/7]</tspan><tspan fill="#c9d1d9" font-weight="bold"> Creating launcher</tspan></text>
       <text x="24" y="462" xml:space="preserve"><tspan fill="#6ee7a8">✔</tspan><tspan fill="#c9d1d9"> launcher: /data/data/com.termux/files/usr/bin/opencode</tspan></text>
 
-      <text x="24" y="486" xml:space="preserve"><tspan fill="#6e7681">[6/7]</tspan><tspan fill="#c9d1d9" font-weight="bold"> Menyiapkan pairing OpenCode Mobile</tspan></text>
+      <text x="24" y="486" xml:space="preserve"><tspan fill="#6e7681">[6/7]</tspan><tspan fill="#c9d1d9" font-weight="bold"> Setting up OpenCode Mobile pairing</tspan></text>
       <text x="24" y="506" xml:space="preserve"><tspan fill="#6ee7a8">✔</tspan><tspan fill="#c9d1d9"> pairing: /data/data/com.termux/files/usr/bin/opencode-pair</tspan></text>
 
-      <text x="24" y="530" xml:space="preserve"><tspan fill="#6e7681">[7/7]</tspan><tspan fill="#c9d1d9" font-weight="bold"> Menulis konfigurasi</tspan></text>
+      <text x="24" y="530" xml:space="preserve"><tspan fill="#6e7681">[7/7]</tspan><tspan fill="#c9d1d9" font-weight="bold"> Writing configuration</tspan></text>
       <text x="24" y="550" xml:space="preserve"><tspan fill="#6ee7a8">✔</tspan><tspan fill="#c9d1d9"> config: ~/.config/opencode/opencode.json</tspan></text>
 
       <!-- done box -->
       <g>
-        <rect x="24" y="568" width="360" height="30" rx="6" fill="none" stroke="#0E4C5C" stroke-width="1.2"/>
-        <text x="38" y="588" xml:space="preserve"><tspan fill="#00F5FF" font-weight="bold">SIAP DIPAKAI</tspan><tspan fill="#6e7681">  ·  cd ~/project &amp;&amp; opencode</tspan></text>
+        <rect x="24" y="568" width="372" height="30" rx="6" fill="none" stroke="#0E4C5C" stroke-width="1.2"/>
+        <text x="38" y="588" xml:space="preserve"><tspan fill="#00F5FF" font-weight="bold">READY TO GO</tspan><tspan fill="#6e7681">  ·  cd ~/project &amp;&amp; opencode</tspan></text>
       </g>
     </g>
 
     <!-- right panel -->
-    <g transform="translate(470, 240)">
-      <rect x="0" y="0" width="386" height="270" rx="8" fill="#0e1620" stroke="#0E4C5C" stroke-width="1.2"/>
+    <g transform="translate(478, 240)">
+      <rect x="0" y="0" width="378" height="270" rx="8" fill="#0e1620" stroke="#0E4C5C" stroke-width="1.2"/>
       <text x="16" y="26" fill="#00F5FF" font-size="12" font-weight="bold">PAIRING</text>
-      <line x1="0" y1="38" x2="386" y2="38" stroke="#0E4C5C"/>
+      <line x1="0" y1="38" x2="378" y2="38" stroke="#0E4C5C"/>
 
       <g font-size="12" fill="#8b949e">
         <text x="16" y="62" fill="#c9d1d9" font-weight="bold">OpenCode Mobile</text>
         <text x="16" y="80">Play Store · ai.opencode.mobilecode</text>
 
         <text x="16" y="108" fill="#00D0E8">$ opencode-pair</text>
-        <text x="16" y="126">Mode: OpenTunnel (jaringan mana pun)</text>
+        <text x="16" y="126">Mode: OpenTunnel (any network)</text>
 
         <!-- fake QR -->
         <g transform="translate(16, 140)">
@@ -93,11 +93,11 @@
           </g>
         </g>
 
-        <text x="128" y="158" fill="#c9d1d9">1. scan QR</text>
-        <text x="128" y="176" fill="#c9d1d9">2. atau tempel link</text>
-        <text x="128" y="194" fill="#6e7681">link berlaku 5 menit</text>
+        <text x="128" y="158" fill="#c9d1d9">1. scan the QR</text>
+        <text x="128" y="176" fill="#c9d1d9">2. or paste the link</text>
+        <text x="128" y="194" fill="#6e7681">link valid for 5 minutes</text>
 
-        <text x="16" y="256" fill="#484f58">terminal tetap terbuka = server hidup</text>
+        <text x="16" y="256" fill="#484f58">keep terminal open = server alive</text>
       </g>
     </g>
   </g>
